@@ -21,6 +21,7 @@ public class DynamicProgramming {
         if (notPass.contains(this.target)) {
             return -1;
         }
+        return -1;
 
     }
 
@@ -44,8 +45,10 @@ public class DynamicProgramming {
         String curString = queue.poll();
         int step = curMap.get(curString);
         for (int i = 0; i < curString.length(); i++) {
-            
+            System.out.println(1);
         }
+        return 1;
     }
+
 
 }
