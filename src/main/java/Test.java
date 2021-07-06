@@ -124,4 +124,134 @@ public class Test {
         }
         System.out.println(result);
     }
+
+
+    public int trap(int[] height) {
+        int result = 0;
+        Deque<Integer> stack = new ArrayDeque<>();
+        for (int i = 0; i < height.length; i++) {
+            while (!stack.isEmpty() && height[stack.peek()] < height[i]) {
+                int index = stack.pop();
+                if (stack.isEmpty()) {
+                    break;
+                }
+                int high = Math.min(height[stack.peek()], height[i]) - height[index];
+                int width = i - stack.peek() - 1;
+                result += high * width;
+            }
+            stack.push(i);
+        }
+        return result;
+    }
+
+
+
+    List<List<Integer>> premuteResultList;
+    public void dfsPremute(int[] nums, boolean[] flags, List<Integer> temp) {
+        if (temp.size() == nums.length) {
+            premuteResultList.add(new ArrayList<>(temp));
+            return;
+        }
+        for (int i = 0; i < nums.length; i++) {
+            if (flags[nums[i]] == true) {
+                continue;
+            }
+            flags[nums[i]]=true;
+            temp.add(nums[i]);
+            dfsPremute(nums, flags, temp);
+            temp.remove(temp.size() - 1);
+            flags[nums[i]]=false;
+        }
+    }
+
+    public void dfsPremuteUnique(int[] nums, boolean[] flags, List<Integer> temp) {
+        if (temp.size() == nums.length) {
+            premuteResultList.add(new ArrayList<>(temp));
+            return;
+        }
+        for (int i = 0; i < nums.length; i++) {
+            if (flags[i] || (i > 0 && nums[i] == nums[i - 1] && !flags[i - 1])) {
+                continue;
+            }
+            flags[i] = true;
+            temp.add(nums[i]);
+            dfsPremute(nums, flags, temp);
+            temp.remove(temp.size() - 1);
+            flags[i] = false;
+        }
+    }
+
+    public int maxSubArray(int[] nums) {
+        int result = -1;
+        int temp = 0;
+        for (int num : nums) {
+            if (temp + num <= 0) {
+                temp = 0;
+                continue;
+            }
+            temp += num;
+            result = Math.max(result, temp);
+        }
+        return result;
+    }
+
+    public List<Integer> spiralOrder(int[][] matrix) {
+        int low = 0;
+        int high = matrix.length-1;
+        int left = 0;
+        int right = matrix[0].length-1;
+        int n = matrix[0].length*matrix.length;
+        int index = 0;
+        List<Integer> result = new ArrayList<>();
+        while (index < n) {
+            for (int j = left; j < right; j++) {
+                index++;
+                result.add(matrix[low][j]);
+            }
+            low++;
+            for (int i = low; i < high; i++) {
+                index++;
+                result.add(matrix[i][right]);
+            }
+            right--;
+            for (int j = right; j >= left ; j--) {
+                index++;
+                result.add(matrix[high][j]);
+            }
+            high--;
+            for (int i = high; i >= low; i--) {
+                index++;
+                result.add(matrix[i][left]);
+            }
+            left++;
+        }
+        return result;
+    }
+
+    public String getPermutation(int n, int k) {
+
+    }
+
+    int end;
+    String resultString;
+    public void dfsGetPremutation(int n, int index, StringBuilder stringBuilder, boolean[] isUsed) {
+        if (stringBuilder.length() == n) {
+            index++;
+            if (index == end) {
+                resultString = stringBuilder.toString();
+            }
+        }
+        for (int i = 1; i < n; i++) {
+            if (isUsed[i]) {
+                continue;
+            }
+            isUsed[i]=true;
+            stringBuilder.append(i);
+            dfsGetPremutation(n, index, stringBuilder, isUsed);
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+            isUsed[i]=false;
+
+
+        }
+    }
 }

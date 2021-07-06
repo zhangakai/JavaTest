@@ -30,3 +30,18 @@ day2:
     POJO（ Plain Ordinary Java Object）：POJO专指只有setter/getter/toString的简单类，包括DO/DTO/BO/VO等。
     Query：数据查询对象，各层接收上层的查询请求。 注意超过2个参数的查询封装，禁止使用Map类来传输。
 
+
+
+----------------------
+
+spring boot 启动过程
+
+    SpringAppliction 负责
+    创建一个合适的ApplictionContext实例
+    注册一个CommandLinePropertySource负责将命令行参数转化为spring proprty
+    刷新application context 加载所有的单例bean
+    激活所有的CommandLineRunner(一个接口,表示要run的bean) bean
+    Create an appropriate ApplicationContext instance (depending on your classpath)
+    Register a CommandLinePropertySource to expose command line arguments as Spring properties
+    Refresh the application context, loading all singleton beans
+    Trigger any CommandLineRunner beans
