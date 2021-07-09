@@ -254,4 +254,20 @@ public class Test {
 
         }
     }
+
+    public int largestRectangleArea(int[] heights) {
+        int result = 0;
+        for (int i = 0; i < heights.length; i++) {
+            int start = i;
+            int end = i;
+            while (start>=0&&heights[start] >= heights[i]) {
+                start--;
+            }
+            while (end < heights.length && heights[end] >= heights[i]) {
+                end++;
+            }
+            result = Math.max(result, (start - end - 1) * heights[i]);
+        }
+        return result;
+    }
 }
