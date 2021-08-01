@@ -241,7 +241,7 @@ mysql 索引是否失效问题
 
     2.
 	select * from ad_device_status_info  where  logic_id < 1000 and wechat_username like "%sfd%";
-    虽然后面的wechat_username like "%fjwe% 会失效 但是前面的logic_id生效了 这就是using index condition
+    虽然后面的wechat_username like "%fjwe% 会失效 但是前面的logic_id生效了
     
     3.带函数 类型转换的不走索引 例如 id +1 = 10; cast(id)
     
